@@ -21,7 +21,7 @@ const jobs: Job[] = [
     period: "March 2025 – March 2026",
     type: "B2B SaaS · React Native",
     description:
-      "Built and shipped production mobile features across e-signature, project management, leave, and authentication modules for a live B2B SaaS platform.",
+      "Built and shipped production mobile and web features across e-signature, project management, leave, and authentication modules for a live B2B SaaS platform.",
     tech: [
       "React Native",
       "Expo",
