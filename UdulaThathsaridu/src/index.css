@@ -28,9 +28,9 @@
   --surface-tint: rgba(63, 255, 139, 0.05);
 
   /* Typography */
-  --font-display: 'Space Grotesk', sans-serif;
-  --font-body: 'Inter', sans-serif;
-  --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+  --font-display: "Space Grotesk", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", "Consolas", monospace;
 
   /* Spacing */
   --spacing-1: 0.25rem;
@@ -57,7 +57,9 @@
    GLOBAL RESET & BASE
    ============================================================ */
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -131,7 +133,9 @@ button {
   font-size: 0.875rem;
   font-weight: 600;
   border-radius: var(--radius-md);
-  transition: opacity 0.2s, transform 0.2s;
+  transition:
+    opacity 0.2s,
+    transform 0.2s;
   border: none;
   cursor: pointer;
 }
@@ -153,7 +157,10 @@ button {
   font-weight: 500;
   border-radius: var(--radius-md);
   border: 1px solid rgba(228, 229, 238, 0.2);
-  transition: background 0.2s, border-color 0.2s, transform 0.2s;
+  transition:
+    background 0.2s,
+    border-color 0.2s,
+    transform 0.2s;
   cursor: pointer;
 }
 

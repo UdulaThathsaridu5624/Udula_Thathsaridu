@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Menu, X } from 'lucide-react'
 import { GithubIcon, LinkedinIcon } from './BrandIcons'
+import profilePhoto from '../assets/UdulaThathsaridu.jpeg'
 import './Navbar.css'
 
 const navLinks = [
@@ -24,7 +25,7 @@ export default function Navbar() {
     <nav className={`navbar${scrolled ? ' navbar--scrolled' : ''}`}>
       <div className="navbar__inner container">
         <a href="#hero" className="navbar__logo">
-          <span className="navbar__logo-text">UT</span>
+          <img src={profilePhoto} alt="Udula Thathsaridu" className="navbar__logo-img" />
         </a>
 
         <ul className="navbar__links">
