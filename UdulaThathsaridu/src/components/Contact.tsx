@@ -1,6 +1,6 @@
-import { Mail, Send } from 'lucide-react'
-import { GithubIcon, LinkedinIcon } from './BrandIcons'
-import './Contact.css'
+import { Mail, Send } from "lucide-react";
+import { GithubIcon, LinkedinIcon } from "./BrandIcons";
+import "./Contact.css";
 
 export default function Contact() {
   return (
@@ -12,8 +12,8 @@ export default function Contact() {
             <span className="section-label">// get_in_touch</span>
             <h2 className="contact__heading">Let's build something great</h2>
             <p className="contact__sub">
-              Whether you have a project in mind, a collaboration idea, or just want to chat
-              about tech — my inbox is always open.
+              Whether you have a project in mind, a collaboration idea, or just
+              want to chat about tech, my inbox is always open.
             </p>
 
             <div className="contact__socials">
@@ -27,7 +27,7 @@ export default function Contact() {
                 <span>GitHub</span>
               </a>
               <a
-                href="https://linkedin.com/in/udulathathsaridu"
+                href="https://www.linkedin.com/in/udula-thathsaridu-b16428254"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="contact__social-link"
@@ -54,7 +54,9 @@ export default function Contact() {
               encType="text/plain"
             >
               <div className="contact__field">
-                <label htmlFor="name" className="contact__label">Name</label>
+                <label htmlFor="name" className="contact__label">
+                  Name
+                </label>
                 <input
                   type="text"
                   id="name"
@@ -65,7 +67,9 @@ export default function Contact() {
                 />
               </div>
               <div className="contact__field">
-                <label htmlFor="email" className="contact__label">Email</label>
+                <label htmlFor="email" className="contact__label">
+                  Email
+                </label>
                 <input
                   type="email"
                   id="email"
@@ -76,7 +80,9 @@ export default function Contact() {
                 />
               </div>
               <div className="contact__field">
-                <label htmlFor="message" className="contact__label">Message</label>
+                <label htmlFor="message" className="contact__label">
+                  Message
+                </label>
                 <textarea
                   id="message"
                   name="body"
@@ -94,5 +100,5 @@ export default function Contact() {
         </div>
       </div>
     </section>
-  )
+  );
 }

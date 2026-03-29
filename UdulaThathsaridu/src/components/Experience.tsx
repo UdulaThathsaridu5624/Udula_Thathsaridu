@@ -1,34 +1,41 @@
-import rootcodeLogo from '../assets/rootcodelabs_logo.jpg'
-import './Experience.css'
+import rootcodeLogo from "../assets/rootcodelabs_logo.jpg";
+import "./Experience.css";
 
 interface Job {
-  company: string
-  companyUrl: string
-  logo: string
-  role: string
-  period: string
-  type: string
-  description: string
-  tech: string[]
+  company: string;
+  companyUrl: string;
+  logo: string;
+  role: string;
+  period: string;
+  type: string;
+  description: string;
+  tech: string[];
 }
 
 const jobs: Job[] = [
   {
-    company: 'Rootcode',
-    companyUrl: 'https://rootcode.io/',
+    company: "Rootcode",
+    companyUrl: "https://rootcode.io/",
     logo: rootcodeLogo,
-    role: 'Intern Software Engineer',
-    period: 'March 2025 – March 2026',
-    type: 'B2B SaaS · React Native',
+    role: "Intern Software Engineer",
+    period: "March 2025 – March 2026",
+    type: "B2B SaaS · React Native",
     description:
-      'Built and shipped production mobile features across e-signature, project management, leave, and authentication modules for a live B2B SaaS platform.',
+      "Built and shipped production mobile features across e-signature, project management, leave, and authentication modules for a live B2B SaaS platform.",
     tech: [
-      'React Native', 'TypeScript', 'Expo', 'GraphQL', 'WebSocket',
-      'Reanimated', 'Gesture Handler', 'TanStack Query', 'Zustand',
-      'AWS S3', 'CloudFront', 'Tiptap', 'SSE',
+      "React Native",
+      "Expo",
+      "TypeScript",
+      "GraphQL",
+      "TanStack Query",
+      "Zustand",
+      "NestJS",
+      "Spring Boot",
+      "Next.js",
+      "CloudFront",
     ],
   },
-]
+];
 
 export default function Experience() {
   return (
@@ -38,7 +45,7 @@ export default function Experience() {
         <h2 className="experience__heading">Work Experience</h2>
 
         <div className="experience__list">
-          {jobs.map(job => (
+          {jobs.map((job) => (
             <div key={job.company} className="exp-card">
               <div className="exp-card__header">
                 <div className="exp-card__meta">
@@ -66,8 +73,10 @@ export default function Experience() {
               <p className="exp-card__desc">{job.description}</p>
 
               <div className="exp-card__tech">
-                {job.tech.map(t => (
-                  <span key={t} className="exp-card__chip">{t}</span>
+                {job.tech.map((t) => (
+                  <span key={t} className="exp-card__chip">
+                    {t}
+                  </span>
                 ))}
               </div>
             </div>
@@ -75,5 +84,5 @@ export default function Experience() {
         </div>
       </div>
     </section>
-  )
+  );
 }

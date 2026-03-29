@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Menu, X } from 'lucide-react'
-import { GithubIcon } from './BrandIcons'
+import { GithubIcon, LinkedinIcon } from './BrandIcons'
 import './Navbar.css'
 
 const navLinks = [
@@ -8,7 +8,6 @@ const navLinks = [
   { label: 'Experience', href: '#experience' },
   { label: 'Projects', href: '#projects' },
   { label: 'Skills', href: '#skills' },
-  { label: 'Contact', href: '#contact' },
 ]
 
 export default function Navbar() {
@@ -48,8 +47,17 @@ export default function Navbar() {
           >
             <GithubIcon size={18} />
           </a>
+          <a
+            href="https://www.linkedin.com/in/udula-thathsaridu-b16428254"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="navbar__linkedin"
+            aria-label="LinkedIn"
+          >
+            <LinkedinIcon size={18} />
+          </a>
           <a href="#contact" className="btn-ghost navbar__hire">
-            Hire Me
+            Contact Me
           </a>
         </div>
 
@@ -75,7 +83,7 @@ export default function Navbar() {
             </a>
           ))}
           <a href="#contact" className="btn-primary navbar__mobile-cta" onClick={() => setMenuOpen(false)}>
-            Hire Me
+            Contact Me
           </a>
         </div>
       )}

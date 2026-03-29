@@ -42,23 +42,19 @@
 .skills__icon-wrap {
   width: 5rem;
   height: 5rem;
-  background: var(--surface-container-highest);
-  border-radius: var(--radius-lg);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
+  transition: transform 0.2s;
 }
 
 .skills__item:hover .skills__icon-wrap {
-  background: var(--surface-container-high);
-  box-shadow: 0 4px 24px rgba(63, 255, 139, 0.1);
-  transform: translateY(-2px);
+  transform: translateY(-4px);
 }
 
 .skills__icon {
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 4rem;
+  height: 4rem;
   object-fit: contain;
 }
 
@@ -149,8 +145,8 @@
   }
 
   .skills__icon {
-    width: 2rem;
-    height: 2rem;
+    width: 3rem;
+    height: 3rem;
   }
 }
 

@@ -7,7 +7,9 @@
   background: rgba(21, 25, 35, 0.5);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  transition: background 0.3s, box-shadow 0.3s;
+  transition:
+    background 0.3s,
+    box-shadow 0.3s;
 }
 
 .navbar--scrolled {
@@ -55,7 +57,9 @@
   color: var(--on-surface-variant);
   padding: 0.375rem 0.75rem;
   border-radius: var(--radius-sm);
-  transition: color 0.2s, background 0.2s;
+  transition:
+    color 0.2s,
+    background 0.2s;
 }
 
 .navbar__link:hover {
@@ -69,14 +73,16 @@
   gap: 1rem;
 }
 
-.navbar__github {
+.navbar__github,
+.navbar__linkedin {
   color: var(--on-surface-variant);
   display: flex;
   align-items: center;
   transition: color 0.2s;
 }
 
-.navbar__github:hover {
+.navbar__github:hover,
+.navbar__linkedin:hover {
   color: var(--primary);
 }
 

@@ -1,4 +1,4 @@
-import { Rocket, Users } from "lucide-react";
+import { Rocket, Users, Gamepad2, Film, Code2 } from "lucide-react";
 import "./About.css";
 
 const stats = [
@@ -14,6 +14,21 @@ const stats = [
   },
 ];
 
+const interests = [
+  {
+    icon: <Code2 size={18} strokeWidth={1.5} />,
+    label: "Learning new technologies",
+  },
+  {
+    icon: <Film size={18} strokeWidth={1.5} />,
+    label: "Watching movies",
+  },
+  {
+    icon: <Gamepad2 size={18} strokeWidth={1.5} />,
+    label: "Playing games",
+  },
+];
+
 export default function About() {
   return (
     <section id="about" className="about">
@@ -25,6 +40,31 @@ export default function About() {
               Building software that{" "}
               <span className="about__heading-accent">matters</span>
             </h2>
+
+            <p className="about__bio">
+              I'm a software engineer who thrives on turning complex problems
+              into clean, scalable solutions. Whether it's building mobile apps,
+              web platforms, or backend systems, I focus on writing code that
+              ships and makes an impact. Always curious, always learning - I
+              believe the best way to grow is to build, break, and build again.
+            </p>
+
+            <div className="about__interests">
+              <h3 className="about__interests-heading">When I'm not coding</h3>
+              <div className="about__interests-list">
+                {interests.map((interest) => (
+                  <div key={interest.label} className="about__interest-item">
+                    <span className="about__interest-icon">
+                      {interest.icon}
+                    </span>
+                    <span className="about__interest-label">
+                      {interest.label}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
             <div className="about__edu-block">
               <div className="about__edu">
                 <span className="about__edu-label">Degree</span>
