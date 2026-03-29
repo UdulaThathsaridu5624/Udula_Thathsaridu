@@ -1,80 +1,116 @@
-import { ExternalLink, ArrowRight } from 'lucide-react'
-import { GithubIcon } from './BrandIcons'
-import './Projects.css'
+import { ExternalLink, ArrowRight } from "lucide-react";
+import { GithubIcon } from "./BrandIcons";
+import { useState } from "react";
+import "./Projects.css";
+
+type ProjectType = "Web App" | "Mobile App" | "Plugin";
 
 interface Project {
-  title: string
-  description: string
-  language: string
-  tags: string[]
-  repo: string
-  repoFrontend?: string
-  live?: string
+  title: string;
+  description: string;
+  type: ProjectType;
+  tags: string[];
+  repo: string;
+  repoFrontend?: string;
+  live?: string;
 }
 
 const projects: Project[] = [
   {
-    title: 'SpringForge',
+    title: "SpringForge",
     description:
-      'IntelliJ IDEA plugin automating CI/CD pipeline generation for Spring Boot projects — integrates with AWS Bedrock and Claude to produce Dockerfiles, Docker Compose files, and GitHub Actions workflows. Includes MCP Server integration and a PostgreSQL-backed audit service.',
-    language: 'Kotlin',
-    tags: ['Kotlin', 'IntelliJ SDK', 'AWS Bedrock', 'Claude AI', 'PostgreSQL'],
-    repo: 'https://github.com/springforgeecosystem-prog/Spring-Forge',
-    live: 'https://www.springforge.dev/',
+      "IntelliJ IDEA plugin automating CI/CD pipeline generation for Spring Boot projects — integrates with AWS Bedrock and Claude to produce Dockerfiles, Docker Compose files, and GitHub Actions workflows. Includes MCP Server integration and a PostgreSQL-backed audit service.",
+    type: "Plugin",
+    tags: ["Kotlin", "IntelliJ SDK", "AWS Bedrock", "Claude AI", "PostgreSQL"],
+    repo: "https://github.com/springforgeecosystem-prog/Spring-Forge",
+    live: "https://www.springforge.dev/",
   },
   {
-    title: 'HireFlow',
+    title: "HireFlow",
     description:
-      'End-to-end recruitment management system with applicant tracking, interview scheduling, and role pipelines. Java Spring Boot backend with a Vue 3 frontend — deployed live on Google Cloud Run.',
-    language: 'Java',
-    tags: ['Java', 'Spring Boot', 'Vue 3', 'REST API', 'Google Cloud'],
-    repo: 'https://github.com/UdulaThathsaridu5624/HireFlow',
-    repoFrontend: 'https://github.com/UdulaThathsaridu5624/HireFlow-Frontend',
-    live: 'https://hireflow-frontend-d4p3jeyvfa-el.a.run.app',
+      "End-to-end recruitment management system with applicant tracking, interview scheduling, and role pipelines. Java Spring Boot backend with a Vue 3 frontend — deployed live on Google Cloud Run.",
+    type: "Web App",
+    tags: [
+      "Java",
+      "Spring Boot",
+      "Next.js",
+      "Vue 3",
+      "REST API",
+      "Google Cloud",
+    ],
+    repo: "https://github.com/UdulaThathsaridu5624/HireFlow",
+    repoFrontend: "https://github.com/UdulaThathsaridu5624/HireFlow-Frontend",
+    live: "https://hireflow-frontend-d4p3jeyvfa-el.a.run.app",
   },
   {
-    title: 'Food Delivery System',
+    title: "Food Delivery System",
     description:
-      'Microservices-based food delivery platform for customers, restaurant owners, and delivery personnel — real-time order tracking, live map navigation, JWT auth, OTP validation, and centralised email/SMS notifications.',
-    language: 'TypeScript',
-    tags: ['Node.js', 'Express.js', 'Next.js', 'Microservices', 'Docker', 'JWT'],
-    repo: 'https://github.com/UdulaThathsaridu5624?tab=repositories',
+      "Microservices-based food delivery platform for customers, restaurant owners, and delivery personnel — real-time order tracking, live map navigation, JWT auth, OTP validation, and centralised email/SMS notifications.",
+    type: "Web App",
+    tags: [
+      "Node.js",
+      "Express.js",
+      "Next.js",
+      "Microservices",
+      "Docker",
+      "JWT",
+    ],
+    repo: "https://github.com/UdulaThathsaridu5624?tab=repositories",
   },
   {
-    title: 'YC Directory',
+    title: "YC Directory",
     description:
-      'Y Combinator-inspired startup listing platform — users can explore, search, and filter startups. Full frontend interface, robust backend, and production deployment optimised for performance and scalability.',
-    language: 'TypeScript',
-    tags: ['Next.js 15', 'React', 'Tailwind CSS', 'Sanity.io', 'Vercel'],
-    repo: 'https://github.com/UdulaThathsaridu5624?tab=repositories',
+      "Y Combinator-inspired startup listing platform — users can explore, search, and filter startups. Full frontend interface, robust backend, and production deployment optimised for performance and scalability.",
+    type: "Web App",
+    tags: ["Next.js 15", "React", "Tailwind CSS", "Sanity.io", "Vercel"],
+    repo: "https://github.com/UdulaThathsaridu5624?tab=repositories",
   },
   {
-    title: 'LogicLens',
+    title: "LogicLens",
     description:
-      'Advanced static code analyser with an admin panel for configuring rules, tracking complexity and maintainability metrics, and ML-powered custom rule recommendations — built on the MERN stack with Azure.',
-    language: 'JavaScript',
-    tags: ['MongoDB', 'Express', 'React', 'Node.js', 'Machine Learning', 'Azure'],
-    repo: 'https://github.com/UdulaThathsaridu5624?tab=repositories',
+      "Advanced static code analyser with an admin panel for configuring rules, tracking complexity and maintainability metrics, and ML-powered custom rule recommendations — built on the MERN stack with Azure.",
+    type: "Web App",
+    tags: [
+      "MongoDB",
+      "Express",
+      "React",
+      "Node.js",
+      "Machine Learning",
+      "Azure",
+    ],
+    repo: "https://github.com/UdulaThathsaridu5624?tab=repositories",
   },
   {
-    title: 'EVChargingBookingApp',
+    title: "EVChargingBookingApp",
     description:
-      'Station Operator module for an Android EV Charging Booking app — role-based auth, ZXing QR code scanning to validate bookings in real time, and a session completion workflow with ASP.NET Core backend.',
-    language: 'Kotlin',
-    tags: ['Kotlin', 'Jetpack Compose', 'ZXing', 'ASP.NET Core', 'MongoDB'],
-    repo: 'https://github.com/UdulaThathsaridu5624/EVChargingBookingApp',
+      "Station Operator module for an Android EV Charging Booking app — role-based auth, ZXing QR code scanning to validate bookings in real time, and a session completion workflow with ASP.NET Core backend.",
+    type: "Mobile App",
+    tags: ["Kotlin", "Jetpack Compose", "ZXing", "ASP.NET Core", "MongoDB"],
+    repo: "https://github.com/UdulaThathsaridu5624/EVChargingBookingApp",
   },
-]
+];
 
-const languageColors: Record<string, string> = {
-  Kotlin: '#7f52ff',
-  Java: '#f89820',
-  TypeScript: '#3178c6',
-  JavaScript: '#f7df1e',
-  Swift: '#f05138',
-}
+const typeColors: Record<ProjectType, string> = {
+  "Web App": "#3b82f6",
+  "Mobile App": "#10b981",
+  Plugin: "#a855f7",
+};
 
 export default function Projects() {
+  const [activeFilter, setActiveFilter] = useState<ProjectType | "All">("All");
+
+  const filteredProjects =
+    activeFilter === "All"
+      ? projects
+      : projects.filter((p) => p.type === activeFilter);
+
+  const projectTypes: (ProjectType | "All")[] = [
+    "All",
+    "Web App",
+    "Mobile App",
+    "Plugin",
+  ];
+
   return (
     <section id="projects" className="projects">
       <div className="container">
@@ -93,8 +129,25 @@ export default function Projects() {
           </a>
         </div>
 
+        <div className="projects__filters">
+          {projectTypes.map((type) => (
+            <button
+              key={type}
+              className={`projects__filter-btn ${activeFilter === type ? "active" : ""}`}
+              onClick={() => setActiveFilter(type)}
+            >
+              {type}
+              {type !== "All" && (
+                <span className="projects__filter-count">
+                  {projects.filter((p) => p.type === type).length}
+                </span>
+              )}
+            </button>
+          ))}
+        </div>
+
         <div className="projects__grid">
-          {projects.map(project => (
+          {filteredProjects.map((project) => (
             <a
               key={project.title}
               href={project.live ?? project.repo}
@@ -105,11 +158,15 @@ export default function Projects() {
             >
               <div className="project-card__top">
                 <span
-                  className="project-card__lang"
-                  style={{ '--lang-color': languageColors[project.language] } as React.CSSProperties}
+                  className="project-card__type"
+                  style={
+                    {
+                      "--type-color": typeColors[project.type],
+                    } as React.CSSProperties
+                  }
                 >
-                  <span className="project-card__lang-dot" />
-                  {project.language}
+                  <span className="project-card__type-dot" />
+                  {project.type}
                 </span>
                 <div className="project-card__links">
                   {project.live && (
@@ -119,7 +176,7 @@ export default function Projects() {
                       rel="noopener noreferrer"
                       className="project-card__icon-link"
                       aria-label="Live demo"
-                      onClick={e => e.stopPropagation()}
+                      onClick={(e) => e.stopPropagation()}
                     >
                       <ExternalLink size={15} strokeWidth={1.5} />
                     </a>
@@ -131,7 +188,7 @@ export default function Projects() {
                       rel="noopener noreferrer"
                       className="project-card__icon-link project-card__icon-link--label"
                       aria-label="Frontend repository"
-                      onClick={e => e.stopPropagation()}
+                      onClick={(e) => e.stopPropagation()}
                     >
                       <GithubIcon size={13} />
                       <span>FE</span>
@@ -142,8 +199,12 @@ export default function Projects() {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="project-card__icon-link project-card__icon-link--label"
-                    aria-label={project.repoFrontend ? 'Backend repository' : 'GitHub repository'}
-                    onClick={e => e.stopPropagation()}
+                    aria-label={
+                      project.repoFrontend
+                        ? "Backend repository"
+                        : "GitHub repository"
+                    }
+                    onClick={(e) => e.stopPropagation()}
                   >
                     <GithubIcon size={13} />
                     {project.repoFrontend && <span>BE</span>}
@@ -151,12 +212,19 @@ export default function Projects() {
                 </div>
               </div>
 
-              <h3 className="project-card__title">{project.title}</h3>
+              <h3 className="project-card__title">
+                {project.title}
+                {project.live && (
+                  <span className="project-card__live-badge">Live</span>
+                )}
+              </h3>
               <p className="project-card__desc">{project.description}</p>
 
               <div className="project-card__tags">
-                {project.tags.map(tag => (
-                  <span key={tag} className="project-card__tag">{tag}</span>
+                {project.tags.map((tag) => (
+                  <span key={tag} className="project-card__tag">
+                    {tag}
+                  </span>
                 ))}
               </div>
             </a>
@@ -164,5 +232,5 @@ export default function Projects() {
         </div>
       </div>
     </section>
-  )
+  );
 }
