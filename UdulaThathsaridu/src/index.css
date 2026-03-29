@@ -1,0 +1,189 @@
+/* ============================================================
+   DESIGN SYSTEM: THE ENGINEERED EDITORIAL
+   ============================================================ */
+
+:root {
+  /* Surfaces — tonal layering */
+  --surface: #0b0e14;
+  --surface-container-lowest: #080b10;
+  --surface-container-low: #111520;
+  --surface-container: #151923;
+  --surface-container-high: #1a1f2e;
+  --surface-container-highest: #1f2535;
+
+  /* Brand colors */
+  --primary: #3fff8b;
+  --primary-container: #13ea79;
+  --secondary: #6e9bff;
+  --secondary-container: rgba(110, 155, 255, 0.15);
+
+  /* On-colors */
+  --on-surface: #e4e5ee;
+  --on-surface-variant: #9ea0b0;
+  --on-primary: #001a0d;
+  --on-secondary-container: #6e9bff;
+
+  /* Structural */
+  --outline-variant: rgba(228, 229, 238, 0.15);
+  --surface-tint: rgba(63, 255, 139, 0.05);
+
+  /* Typography */
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+
+  /* Spacing */
+  --spacing-1: 0.25rem;
+  --spacing-2: 0.5rem;
+  --spacing-3: 0.75rem;
+  --spacing-4: 1rem;
+  --spacing-6: 1.5rem;
+  --spacing-8: 2rem;
+  --spacing-12: 3rem;
+  --spacing-16: 4rem;
+  --spacing-24: 6rem;
+
+  /* Border radius */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-full: 9999px;
+
+  /* Max width */
+  --max-width: 1200px;
+}
+
+/* ============================================================
+   GLOBAL RESET & BASE
+   ============================================================ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  background-color: var(--surface);
+  color: var(--on-surface);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+#root {
+  width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+button {
+  font-family: var(--font-body);
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+/* ============================================================
+   UTILITY CLASSES
+   ============================================================ */
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--spacing-8);
+}
+
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--primary);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: var(--spacing-4);
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  padding: 0.75rem 1.75rem;
+  background: linear-gradient(135deg, var(--primary), var(--primary-container));
+  color: var(--on-primary);
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  transition: opacity 0.2s, transform 0.2s;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  padding: 0.75rem 1.75rem;
+  background: transparent;
+  color: var(--on-surface);
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(228, 229, 238, 0.2);
+  transition: background 0.2s, border-color 0.2s, transform 0.2s;
+  cursor: pointer;
+}
+
+.btn-ghost:hover {
+  background: var(--surface-container-high);
+  border-color: rgba(228, 229, 238, 0.35);
+  transform: translateY(-1px);
+}
+
+.btn-tertiary {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  background: transparent;
+  color: var(--secondary);
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: gap 0.2s;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.btn-tertiary:hover {
+  gap: var(--spacing-3);
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 var(--spacing-6);
+  }
+}

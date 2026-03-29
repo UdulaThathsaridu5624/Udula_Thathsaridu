@@ -1,0 +1,119 @@
+.contact {
+  background: var(--surface-container);
+  padding: var(--spacing-24) 0 var(--spacing-12);
+}
+
+.contact__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: start;
+}
+
+/* ── Left ──────────────────────────────────────── */
+
+.contact__heading {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  font-weight: 700;
+  color: var(--on-surface);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+.contact__sub {
+  color: var(--on-surface-variant);
+  font-size: 1rem;
+  line-height: 1.7;
+  margin-bottom: 2.5rem;
+}
+
+.contact__socials {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.contact__social-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--secondary);
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: gap 0.2s, color 0.2s;
+  width: fit-content;
+}
+
+.contact__social-link:hover {
+  gap: 1rem;
+  color: var(--primary);
+}
+
+/* ── Right: Form ───────────────────────────────── */
+
+.contact__form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.contact__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.contact__label {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  color: var(--primary);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.contact__input {
+  background: var(--surface-container-highest);
+  color: var(--on-surface);
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  border: none;
+  border-bottom: 2px solid var(--outline-variant);
+  padding: 0.75rem 0.5rem;
+  outline: none;
+  width: 100%;
+  transition: border-color 0.2s;
+  caret-color: var(--primary);
+  border-radius: 0;
+}
+
+.contact__input::placeholder {
+  color: var(--on-surface-variant);
+  opacity: 0.5;
+}
+
+.contact__input:focus {
+  border-bottom-color: var(--primary);
+  background: var(--surface-container-high);
+}
+
+.contact__textarea {
+  resize: vertical;
+  min-height: 7rem;
+}
+
+.contact__submit {
+  align-self: flex-start;
+  margin-top: 0.5rem;
+}
+
+/* ── Responsive ─────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .contact__grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+}

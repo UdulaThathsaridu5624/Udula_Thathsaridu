@@ -1,0 +1,167 @@
+.skills {
+  background: var(--surface-container-low);
+  padding: var(--spacing-24) 0 var(--spacing-12);
+}
+
+.skills__heading {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  font-weight: 700;
+  color: var(--on-surface);
+  letter-spacing: -0.02em;
+  margin-bottom: 3rem;
+}
+
+/* ── Carousel ───────────────────────────────────── */
+
+.skills__carousel {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.skills__track {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+/* ── Item ───────────────────────────────────────── */
+
+.skills__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  flex: 1;
+  min-width: 0;
+  animation-delay: var(--delay, 0s);
+}
+
+.skills__icon-wrap {
+  width: 5rem;
+  height: 5rem;
+  background: var(--surface-container-highest);
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+
+.skills__item:hover .skills__icon-wrap {
+  background: var(--surface-container-high);
+  box-shadow: 0 4px 24px rgba(63, 255, 139, 0.1);
+  transform: translateY(-2px);
+}
+
+.skills__icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  object-fit: contain;
+}
+
+.skills__name {
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--on-surface);
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+/* ── Arrows ─────────────────────────────────────── */
+
+.skills__arrow {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: var(--surface-container-highest);
+  color: var(--on-surface-variant);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, transform 0.2s;
+}
+
+.skills__arrow:hover {
+  background: var(--surface-container-high);
+  color: var(--primary);
+  transform: scale(1.05);
+}
+
+/* ── Progress bar ───────────────────────────────── */
+
+.skills__progress {
+  height: 2px;
+  background: var(--outline-variant);
+  border-radius: 1px;
+  margin-top: 2.5rem;
+  overflow: hidden;
+}
+
+.skills__progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary), var(--primary-container));
+  border-radius: 1px;
+  transition: width 0.4s ease;
+}
+
+/* ── Slide animations ───────────────────────────── */
+
+@keyframes skillSlideNext {
+  from { opacity: 0; transform: translateX(40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes skillSlidePrev {
+  from { opacity: 0; transform: translateX(-40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.skills__track[data-dir="next"] .skills__item {
+  animation: skillSlideNext 0.35s ease both;
+  animation-delay: var(--delay, 0s);
+}
+
+.skills__track[data-dir="prev"] .skills__item {
+  animation: skillSlidePrev 0.35s ease both;
+  animation-delay: var(--delay, 0s);
+}
+
+/* ── Responsive ─────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .skills__track {
+    gap: 1rem;
+  }
+
+  .skills__icon-wrap {
+    width: 4rem;
+    height: 4rem;
+  }
+
+  .skills__icon {
+    width: 2rem;
+    height: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .skills__arrow {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .skills__icon-wrap {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
+}
