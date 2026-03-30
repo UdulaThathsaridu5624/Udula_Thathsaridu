@@ -8,7 +8,7 @@ type ProjectType = "Web App" | "Mobile App" | "Plugin";
 interface Project {
   title: string;
   description: string;
-  type: ProjectType;
+  type: ProjectType | ProjectType[];
   tags: string[];
   repo: string;
   repoFrontend?: string;
@@ -19,7 +19,7 @@ const projects: Project[] = [
   {
     title: "SpringForge",
     description:
-      'IntelliJ IDEA plugin automating CI/CD pipeline generation for Spring Boot projects. Integrates with AWS Bedrock and Claude to produce Dockerfiles, Docker Compose files, and GitHub Actions workflows. Includes MCP Server integration and a PostgreSQL-backed audit service.',
+      "IntelliJ IDEA plugin automating CI/CD pipeline generation for Spring Boot projects. Integrates with AWS Bedrock and Claude to produce Dockerfiles, Docker Compose files, and GitHub Actions workflows. Includes MCP Server integration and a PostgreSQL-backed audit service.",
     type: "Plugin",
     tags: ["Kotlin", "IntelliJ SDK", "AWS Bedrock", "Claude AI", "PostgreSQL"],
     repo: "https://github.com/springforgeecosystem-prog/Spring-Forge",
@@ -28,7 +28,7 @@ const projects: Project[] = [
   {
     title: "HireFlow",
     description:
-      'End-to-end recruitment management system with applicant tracking, interview scheduling, and role pipelines. Java Spring Boot backend with a Vue 3 frontend deployed live on Google Cloud Run.',
+      "End-to-end recruitment management system with applicant tracking, interview scheduling, and role pipelines. Java Spring Boot backend with a Vue 3 frontend deployed live on Google Cloud Run.",
     type: "Web App",
     tags: [
       "Java",
@@ -45,7 +45,7 @@ const projects: Project[] = [
   {
     title: "Food Delivery System",
     description:
-      'Microservices-based food delivery platform for customers, restaurant owners, and delivery personnel. Real-time order tracking, live map navigation, JWT auth, OTP validation, and centralised email/SMS notifications.',
+      "Microservices-based food delivery platform for customers, restaurant owners, and delivery personnel. Real-time order tracking, live map navigation, JWT auth, OTP validation, and centralised email/SMS notifications.",
     type: "Web App",
     tags: [
       "Node.js",
@@ -60,7 +60,7 @@ const projects: Project[] = [
   {
     title: "YC Directory",
     description:
-      'Y Combinator-inspired startup listing platform. Users can explore, search, and filter startups. Full frontend interface, robust backend, and production deployment optimised for performance and scalability.',
+      "Y Combinator-inspired startup listing platform. Users can explore, search, and filter startups. Full frontend interface, robust backend, and production deployment optimised for performance and scalability.",
     type: "Web App",
     tags: ["Next.js 15", "React", "Tailwind CSS", "Sanity.io", "Vercel"],
     repo: "https://github.com/UdulaThathsaridu5624?tab=repositories",
@@ -68,7 +68,7 @@ const projects: Project[] = [
   {
     title: "LogicLens",
     description:
-      'Advanced static code analyser with an admin panel for configuring rules, tracking complexity and maintainability metrics, and ML-powered custom rule recommendations. Built on the MERN stack with Azure.',
+      "Advanced static code analyser with an admin panel for configuring rules, tracking complexity and maintainability metrics, and ML-powered custom rule recommendations. Built on the MERN stack with Azure.",
     type: "Web App",
     tags: [
       "MongoDB",
@@ -83,10 +83,27 @@ const projects: Project[] = [
   {
     title: "EVChargingBookingApp",
     description:
-      'Station Operator module for an Android EV Charging Booking app. Role-based auth, ZXing QR code scanning to validate bookings in real time, and a session completion workflow with ASP.NET Core backend.',
-    type: "Mobile App",
+      "Station Operator module for an Android EV Charging Booking app. Role-based auth, ZXing QR code scanning to validate bookings in real time, and a session completion workflow with ASP.NET Core backend. Includes a companion web app for admin and user management.",
+    type: ["Mobile App", "Web App"],
     tags: ["Kotlin", "Jetpack Compose", "ZXing", "ASP.NET Core", "MongoDB"],
     repo: "https://github.com/UdulaThathsaridu5624/EVChargingBookingApp",
+    repoFrontend:
+      "https://github.com/UdulaThathsaridu5624/EVChargingBookingApp-WebApp",
+  },
+  {
+    title: "GeoVault",
+    description:
+      "World countries explorer built with React and Vite. Browse detailed country info including borders, population, and languages. Features search, region and language filtering, a favourites system with user authentication, and a fully responsive design.",
+    type: "Web App",
+    tags: [
+      "React",
+      "Vite",
+      "Tailwind CSS",
+      "REST Countries API",
+      "React Router",
+    ],
+    repo: "https://github.com/UdulaThathsaridu5624/GeoVault",
+    live: "https://geo-vault.vercel.app",
   },
 ];
 
@@ -99,10 +116,13 @@ const typeColors: Record<ProjectType, string> = {
 export default function Projects() {
   const [activeFilter, setActiveFilter] = useState<ProjectType | "All">("All");
 
+  const hasType = (p: Project, t: ProjectType) =>
+    Array.isArray(p.type) ? p.type.includes(t) : p.type === t;
+
   const filteredProjects =
     activeFilter === "All"
       ? projects
-      : projects.filter((p) => p.type === activeFilter);
+      : projects.filter((p) => hasType(p, activeFilter));
 
   const projectTypes: (ProjectType | "All")[] = [
     "All",
@@ -139,7 +159,7 @@ export default function Projects() {
               {type}
               {type !== "All" && (
                 <span className="projects__filter-count">
-                  {projects.filter((p) => p.type === type).length}
+                  {projects.filter((p) => hasType(p, type)).length}
                 </span>
               )}
             </button>
@@ -157,17 +177,18 @@ export default function Projects() {
               aria-label={`Open ${project.title}`}
             >
               <div className="project-card__top">
-                <span
-                  className="project-card__type"
-                  style={
-                    {
-                      "--type-color": typeColors[project.type],
-                    } as React.CSSProperties
-                  }
-                >
-                  <span className="project-card__type-dot" />
-                  {project.type}
-                </span>
+                <div className="project-card__types">
+                  {(Array.isArray(project.type) ? project.type : [project.type]).map((t) => (
+                    <span
+                      key={t}
+                      className="project-card__type"
+                      style={{ "--type-color": typeColors[t] } as React.CSSProperties}
+                    >
+                      <span className="project-card__type-dot" />
+                      {t}
+                    </span>
+                  ))}
+                </div>
                 <div className="project-card__links">
                   {project.live && (
                     <a
