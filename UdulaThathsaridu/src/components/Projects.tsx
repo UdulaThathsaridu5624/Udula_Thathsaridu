@@ -1,18 +1,16 @@
-import { ExternalLink, ArrowRight } from "lucide-react";
-import { GithubIcon } from "./BrandIcons";
 import { useState } from "react";
 import "./Projects.css";
-
-type ProjectType = "Web App" | "Mobile App" | "Plugin";
 
 interface Project {
   title: string;
   description: string;
-  type: ProjectType | ProjectType[];
+  types: string[];
+  typeLabel: string;
   tags: string[];
+  live?: string;
   repo: string;
   repoFrontend?: string;
-  live?: string;
+  featured?: boolean;
 }
 
 const projects: Project[] = [
@@ -20,16 +18,19 @@ const projects: Project[] = [
     title: "SpringForge",
     description:
       "IntelliJ IDEA plugin automating CI/CD pipeline generation for Spring Boot projects. Integrates with AWS Bedrock and Claude to produce Dockerfiles, Docker Compose files, and GitHub Actions workflows. Includes MCP Server integration and a PostgreSQL-backed audit service.",
-    type: "Plugin",
+    types: ["plugin"],
+    typeLabel: "Plugin · Featured",
     tags: ["Kotlin", "IntelliJ SDK", "AWS Bedrock", "Claude AI", "PostgreSQL"],
-    repo: "https://github.com/springforgeecosystem-prog/Spring-Forge",
     live: "https://www.springforge.dev/",
+    repo: "https://github.com/springforgeecosystem-prog/Spring-Forge",
+    featured: true,
   },
   {
     title: "HireFlow",
     description:
       "End-to-end recruitment management system with applicant tracking, interview scheduling, and role pipelines. Java Spring Boot backend with a Vue 3 frontend deployed live on Google Cloud Run.",
-    type: "Web App",
+    types: ["web"],
+    typeLabel: "Web App",
     tags: [
       "Java",
       "Spring Boot",
@@ -38,15 +39,16 @@ const projects: Project[] = [
       "REST API",
       "Google Cloud",
     ],
+    live: "https://hireflow-frontend-d4p3jeyvfa-el.a.run.app",
     repo: "https://github.com/UdulaThathsaridu5624/HireFlow",
     repoFrontend: "https://github.com/UdulaThathsaridu5624/HireFlow-Frontend",
-    live: "https://hireflow-frontend-d4p3jeyvfa-el.a.run.app",
   },
   {
     title: "Food Delivery System",
     description:
       "Microservices-based food delivery platform for customers, restaurant owners, and delivery personnel. Real-time order tracking, live map navigation, JWT auth, OTP validation, and centralised email/SMS notifications.",
-    type: "Web App",
+    types: ["web"],
+    typeLabel: "Web App · Microservices",
     tags: [
       "Node.js",
       "Express.js",
@@ -55,21 +57,24 @@ const projects: Project[] = [
       "Docker",
       "JWT",
     ],
-    repo: "https://github.com/UdulaThathsaridu5624?tab=repositories",
+    repo: "https://github.com/UdulaThathsaridu5624/food-delivery-system-backend.git",
+    repoFrontend: "https://github.com/UdulaThathsaridu5624/food-delivery-system-frontend.git",
   },
   {
     title: "YC Directory",
     description:
       "Y Combinator-inspired startup listing platform. Users can explore, search, and filter startups. Full frontend interface, robust backend, and production deployment optimised for performance and scalability.",
-    type: "Web App",
+    types: ["web"],
+    typeLabel: "Web App",
     tags: ["Next.js 15", "React", "Tailwind CSS", "Sanity.io", "Vercel"],
-    repo: "https://github.com/UdulaThathsaridu5624?tab=repositories",
+    repo: "https://github.com/UdulaThathsaridu5624/Startup-App.git",
   },
   {
     title: "LogicLens",
     description:
       "Advanced static code analyser with an admin panel for configuring rules, tracking complexity and maintainability metrics, and ML-powered custom rule recommendations. Built on the MERN stack with Azure.",
-    type: "Web App",
+    types: ["web"],
+    typeLabel: "Web App · ML",
     tags: [
       "MongoDB",
       "Express",
@@ -78,13 +83,14 @@ const projects: Project[] = [
       "Machine Learning",
       "Azure",
     ],
-    repo: "https://github.com/UdulaThathsaridu5624?tab=repositories",
+    repo: "https://github.com/UdulaThathsaridu5624/code-analyzer.git",
   },
   {
-    title: "EVChargingBookingApp",
+    title: "EV Charging Booking",
     description:
-      "Station Operator module for an Android EV Charging Booking app. Role-based auth, ZXing QR code scanning to validate bookings in real time, and a session completion workflow with ASP.NET Core backend. Includes a companion web app for admin and user management.",
-    type: ["Mobile App", "Web App"],
+      "Station Operator module for an Android EV charging booking app — role-based auth, ZXing QR scanning to validate bookings in real time, and a session-completion workflow with an ASP.NET Core backend, plus a companion web app for admin and user management.",
+    types: ["mobile", "web"],
+    typeLabel: "Mobile + Web",
     tags: ["Kotlin", "Jetpack Compose", "ZXing", "ASP.NET Core", "MongoDB"],
     repo: "https://github.com/UdulaThathsaridu5624/EVChargingBookingApp",
     repoFrontend:
@@ -93,8 +99,9 @@ const projects: Project[] = [
   {
     title: "GeoVault",
     description:
-      "World countries explorer built with React and Vite. Browse detailed country info including borders, population, and languages. Features search, region and language filtering, a favourites system with user authentication, and a fully responsive design.",
-    type: "Web App",
+      "World countries explorer built with React and Vite. Browse borders, population, and languages with search, region and language filtering, a favourites system with user authentication, and a fully responsive design.",
+    types: ["web"],
+    typeLabel: "Web App",
     tags: [
       "React",
       "Vite",
@@ -102,153 +109,157 @@ const projects: Project[] = [
       "REST Countries API",
       "React Router",
     ],
-    repo: "https://github.com/UdulaThathsaridu5624/GeoVault",
     live: "https://geo-vault.vercel.app",
+    repo: "https://github.com/UdulaThathsaridu5624/GeoVault",
   },
 ];
 
-const typeColors: Record<ProjectType, string> = {
-  "Web App": "#3b82f6",
-  "Mobile App": "#10b981",
-  Plugin: "#a855f7",
-};
+type Filter = "all" | "web" | "mobile" | "plugin";
+
+const filters: { label: string; value: Filter }[] = [
+  { label: "All", value: "all" },
+  { label: "Web App", value: "web" },
+  { label: "Mobile", value: "mobile" },
+  { label: "Plugin", value: "plugin" },
+];
+
+const count = (f: Filter) =>
+  f === "all"
+    ? projects.length
+    : projects.filter((p) => p.types.includes(f)).length;
 
 export default function Projects() {
-  const [activeFilter, setActiveFilter] = useState<ProjectType | "All">("All");
+  const [active, setActive] = useState<Filter>("all");
 
-  const hasType = (p: Project, t: ProjectType) =>
-    Array.isArray(p.type) ? p.type.includes(t) : p.type === t;
-
-  const filteredProjects =
-    activeFilter === "All"
+  const visible =
+    active === "all"
       ? projects
-      : projects.filter((p) => hasType(p, activeFilter));
-
-  const projectTypes: (ProjectType | "All")[] = [
-    "All",
-    "Web App",
-    "Mobile App",
-    "Plugin",
-  ];
+      : projects.filter((p) => p.types.includes(active));
 
   return (
-    <section id="projects" className="projects">
+    <section id="projects" className="projects section">
       <div className="container">
-        <div className="projects__header">
+        <div className="sec-head reveal">
           <div>
-            <span className="section-label">// featured_work</span>
-            <h2 className="projects__heading">Selected Projects</h2>
+            <span className="eyebrow">Selected work</span>
+            <h2 className="sec-title">Things I've built</h2>
           </div>
-          <a
-            href="https://github.com/UdulaThathsaridu5624?tab=repositories"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-tertiary"
-          >
-            View All on GitHub <ArrowRight size={15} strokeWidth={2} />
-          </a>
+          <div className="projects__sec-right">
+            <span className="sec-index">03 — Work</span>
+            <a
+              href="https://github.com/UdulaThathsaridu5624?tab=repositories"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="projects__all-link"
+            >
+              All repositories ↗
+            </a>
+          </div>
         </div>
 
-        <div className="projects__filters">
-          {projectTypes.map((type) => (
+        <div className="projects__filters reveal">
+          {filters.map((f) => (
             <button
-              key={type}
-              className={`projects__filter-btn ${activeFilter === type ? "active" : ""}`}
-              onClick={() => setActiveFilter(type)}
+              key={f.value}
+              className={`projects__tab${active === f.value ? " active" : ""}`}
+              onClick={() => setActive(f.value)}
             >
-              {type}
-              {type !== "All" && (
-                <span className="projects__filter-count">
-                  {projects.filter((p) => hasType(p, type)).length}
-                </span>
-              )}
+              {f.label}
+              <sup>{count(f.value)}</sup>
             </button>
           ))}
         </div>
 
-        <div className="projects__grid">
-          {filteredProjects.map((project) => (
-            <a
-              key={project.title}
-              href={project.live ?? project.repo}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="project-card"
-              aria-label={`Open ${project.title}`}
+        <div className="projects__list">
+          {visible.map((p, i) => (
+            <div
+              key={p.title}
+              className={`project-row${p.featured ? " is-featured" : ""}`}
+              data-type={p.types.join(" ")}
             >
-              <div className="project-card__top">
-                <div className="project-card__types">
-                  {(Array.isArray(project.type) ? project.type : [project.type]).map((t) => (
-                    <span
-                      key={t}
-                      className="project-card__type"
-                      style={{ "--type-color": typeColors[t] } as React.CSSProperties}
-                    >
-                      <span className="project-card__type-dot" />
-                      {t}
-                    </span>
-                  ))}
+              {/* Cover link — whole row clickable */}
+              <a
+                href={p.live ?? p.repo}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="project-row__cover"
+                aria-label={p.live ? `Visit ${p.title} live site` : `View ${p.title} on GitHub`}
+              />
+
+              <span className="project-row__num">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+
+              <div className="project-row__content">
+                <div className="project-row__title-line">
+                  <h3 className="project-row__title">{p.title}</h3>
+                  {p.live && <span className="project-row__live">Live</span>}
+                  <span className="project-row__type">{p.typeLabel}</span>
                 </div>
-                <div className="project-card__links">
-                  {project.live && (
-                    <a
-                      href={project.live}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="project-card__icon-link"
-                      aria-label="Live demo"
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      <ExternalLink size={15} strokeWidth={1.5} />
-                    </a>
-                  )}
-                  {project.repoFrontend && (
-                    <a
-                      href={project.repoFrontend}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="project-card__icon-link project-card__icon-link--label"
-                      aria-label="Frontend repository"
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      <GithubIcon size={13} />
-                      <span>FE</span>
-                    </a>
-                  )}
-                  <a
-                    href={project.repo}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="project-card__icon-link project-card__icon-link--label"
-                    aria-label={
-                      project.repoFrontend
-                        ? "Backend repository"
-                        : "GitHub repository"
-                    }
-                    onClick={(e) => e.stopPropagation()}
+                <p className="project-row__desc">{p.description}</p>
+                <p className="project-row__tags">{p.tags.join(" / ")}</p>
+              </div>
+
+              <div className="project-row__links">
+                <span className="project-row__arrow">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    width="18"
+                    height="18"
                   >
-                    <GithubIcon size={13} />
-                    {project.repoFrontend && <span>BE</span>}
-                  </a>
-                </div>
-              </div>
+                    <path d="M7 17 17 7M7 7h10v10" />
+                  </svg>
+                </span>
 
-              <h3 className="project-card__title">
-                {project.title}
-                {project.live && (
-                  <span className="project-card__live-badge">Live</span>
+                {/* FE / BE split repos */}
+                {p.repoFrontend && (
+                  <div className="project-row__sublinks">
+                    <a
+                      href={p.repoFrontend}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="project-row__sublink"
+                    >
+                      FE
+                    </a>
+                    <a
+                      href={p.repo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="project-row__sublink"
+                    >
+                      BE
+                    </a>
+                  </div>
                 )}
-              </h3>
-              <p className="project-card__desc">{project.description}</p>
 
-              <div className="project-card__tags">
-                {project.tags.map((tag) => (
-                  <span key={tag} className="project-card__tag">
-                    {tag}
-                  </span>
-                ))}
+                {/* Has live site but no FE/BE split → show GitHub repo pill separately */}
+                {p.live && !p.repoFrontend && (
+                  <div className="project-row__sublinks">
+                    <a
+                      href={p.repo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="project-row__sublink project-row__sublink--gh"
+                    >
+                      <svg
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        width="13"
+                        height="13"
+                        aria-hidden="true"
+                      >
+                        <path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.85 9.73.5.1.68-.22.68-.49 0-.24-.01-.88-.01-1.73-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.49-1.11-1.49-.91-.64.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.9 1.56 2.36 1.11 2.93.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.27 2.75 1.05A9.36 9.36 0 0 1 12 6.84c.85 0 1.71.12 2.51.34 1.91-1.32 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.81-4.57 5.06.36.32.68.94.68 1.9 0 1.37-.01 2.48-.01 2.82 0 .27.18.6.69.49A10.02 10.02 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z" />
+                      </svg>
+                      Repo
+                    </a>
+                  </div>
+                )}
               </div>
-            </a>
+            </div>
           ))}
         </div>
       </div>

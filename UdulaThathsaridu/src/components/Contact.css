@@ -1,119 +1,62 @@
 .contact {
-  background: var(--surface-container);
-  padding: var(--spacing-24) 0 var(--spacing-12);
+  background: var(--bg);
 }
 
-.contact__grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 5rem;
-  align-items: start;
+.contact__accent {
+  color: var(--accent);
+  font-style: italic;
 }
 
-/* ── Left ──────────────────────────────────────── */
-
-.contact__heading {
-  font-family: var(--font-display);
-  font-size: clamp(1.75rem, 3vw, 2.25rem);
-  font-weight: 700;
-  color: var(--on-surface);
-  letter-spacing: -0.02em;
-  line-height: 1.2;
-  margin-bottom: 1rem;
+/* large serif email link */
+.contact__email {
+  font-family: var(--display);
+  font-size: clamp(1.5rem, 4vw, 3rem);
+  font-weight: 400;
+  color: var(--ink);
+  text-decoration: none;
+  position: relative;
+  display: inline-block;
+  margin-bottom: 8px;
 }
 
-.contact__sub {
-  color: var(--on-surface-variant);
-  font-size: 1rem;
-  line-height: 1.7;
-  margin-bottom: 2.5rem;
+.contact__email::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .35s cubic-bezier(.2,.7,.3,1);
 }
 
+.contact__email:hover::after {
+  transform: scaleX(1);
+}
+
+/* social pills */
 .contact__socials {
   display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
-.contact__social-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.75rem;
-  color: var(--secondary);
-  font-family: var(--font-display);
-  font-size: 0.9rem;
-  font-weight: 500;
-  transition: gap 0.2s, color 0.2s;
-  width: fit-content;
-}
-
-.contact__social-link:hover {
-  gap: 1rem;
-  color: var(--primary);
-}
-
-/* ── Right: Form ───────────────────────────────── */
-
-.contact__form {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.contact__field {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.contact__label {
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  color: var(--primary);
-  letter-spacing: 0.08em;
+.contact__pill {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: .1em;
   text-transform: uppercase;
+  color: var(--ink-2);
+  border: 1px solid var(--line);
+  border-radius: 100px;
+  padding: 8px 18px;
+  text-decoration: none;
+  transition: color .2s, border-color .2s;
 }
 
-.contact__input {
-  background: var(--surface-container-highest);
-  color: var(--on-surface);
-  font-family: var(--font-body);
-  font-size: 0.9375rem;
-  border: none;
-  border-bottom: 2px solid var(--outline-variant);
-  padding: 0.75rem 0.5rem;
-  outline: none;
-  width: 100%;
-  transition: border-color 0.2s;
-  caret-color: var(--primary);
-  border-radius: 0;
-}
-
-.contact__input::placeholder {
-  color: var(--on-surface-variant);
-  opacity: 0.5;
-}
-
-.contact__input:focus {
-  border-bottom-color: var(--primary);
-  background: var(--surface-container-high);
-}
-
-.contact__textarea {
-  resize: vertical;
-  min-height: 7rem;
-}
-
-.contact__submit {
-  align-self: flex-start;
-  margin-top: 0.5rem;
-}
-
-/* ── Responsive ─────────────────────────────────── */
-
-@media (max-width: 768px) {
-  .contact__grid {
-    grid-template-columns: 1fr;
-    gap: 3rem;
-  }
+.contact__pill:hover {
+  color: var(--ink);
+  border-color: var(--ink);
 }
