@@ -201,7 +201,13 @@ export default function Projects() {
               </div>
 
               <div className="project-row__links">
-                <span className="project-row__arrow">
+                <a
+                  href={p.live ?? p.repo}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="project-row__arrow"
+                  aria-label={p.live ? `Visit ${p.title} live site` : `View ${p.title} on GitHub`}
+                >
                   <svg
                     viewBox="0 0 24 24"
                     fill="none"
@@ -212,7 +218,7 @@ export default function Projects() {
                   >
                     <path d="M7 17 17 7M7 7h10v10" />
                   </svg>
-                </span>
+                </a>
 
                 {/* FE / BE split repos */}
                 {p.repoFrontend && (
