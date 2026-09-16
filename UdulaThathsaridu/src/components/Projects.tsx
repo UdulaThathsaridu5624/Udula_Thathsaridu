@@ -26,6 +26,26 @@ const projects: Project[] = [
     featured: true,
   },
   {
+    title: "Vettly",
+    description:
+      "Smart recruitment platform using AI to screen resumes, rank candidates against job requirements, and flag bias in the hiring pipeline. Polyglot microservices monorepo: React SPA, seven ASP.NET Core services, two Python/FastAPI AI services, and two Go services (API gateway and async notification worker), sharing Postgres and Redis. Deployed entirely on free-tier infrastructure across Render, Neon, Upstash, and Cloudflare.",
+    types: ["web"],
+    typeLabel: "Web App · Microservices",
+    tags: [
+      "React",
+      "TypeScript",
+      "ASP.NET Core",
+      "Go",
+      "Python",
+      "FastAPI",
+      "PostgreSQL",
+      "Redis",
+      "SignalR",
+    ],
+    live: "https://vettly-platform.pages.dev/",
+    repo: "https://github.com/Vettly/vettly-platform",
+  },
+  {
     title: "HireFlow",
     description:
       "End-to-end recruitment management system with applicant tracking, interview scheduling, and role pipelines. Java Spring Boot backend with a Vue 3 frontend deployed live on Google Cloud Run.",

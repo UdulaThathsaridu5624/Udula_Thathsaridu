@@ -1,6 +1,9 @@
+import type { CSSProperties } from "react";
 import "./Skills.css";
+import swaggerLogo from "../assets/swagger-logo.png";
+import brunoLogo from "../assets/bruno-logo.png";
 
-interface Skill { name: string; icon: string; }
+interface Skill { name: string; icon?: string; localIcon?: string; iconScale?: number; }
 
 const groups: { label: string; skills: Skill[] }[] = [
   {
@@ -32,7 +35,21 @@ const groups: { label: string; skills: Skill[] }[] = [
       { name: "NestJS",      icon: "nestjs"   },
       { name: "Spring Boot", icon: "spring"   },
       { name: "ASP.NET",     icon: "dotnet"   },
-      { name: "GraphQL",     icon: "graphql"  },
+      { name: "Go",          icon: "go"       },
+    ],
+  },
+  {
+    label: "API",
+    skills: [
+      { name: "GraphQL", icon: "graphql" },
+      { name: "Postman", icon: "postman" },
+      { name: "Swagger", localIcon: swaggerLogo, iconScale: 1.5 },
+      { name: "Bruno",   localIcon: brunoLogo },
+    ],
+  },
+  {
+    label: "Databases",
+    skills: [
       { name: "MySQL",       icon: "mysql"    },
       { name: "PostgreSQL",  icon: "postgres" },
       { name: "MongoDB",     icon: "mongodb"  },
@@ -49,6 +66,30 @@ const groups: { label: string; skills: Skill[] }[] = [
     ],
   },
 ];
+
+function SkillIcon({ skill }: { readonly skill: Skill }) {
+  const src = skill.localIcon ?? (skill.icon ? `https://skillicons.dev/icons?i=${skill.icon}` : undefined);
+
+  if (!src) {
+    return (
+      <span className="skills__icon skills__icon--fallback" aria-hidden="true">
+        {skill.name.charAt(0)}
+      </span>
+    );
+  }
+
+  return (
+    <img
+      src={src}
+      alt={skill.name}
+      width={22}
+      height={22}
+      loading="lazy"
+      className="skills__icon"
+      style={skill.iconScale ? ({ "--icon-scale": skill.iconScale } as CSSProperties) : undefined}
+    />
+  );
+}
 
 export default function Skills() {
   return (
@@ -72,14 +113,7 @@ export default function Skills() {
               <ul className="skills__list">
                 {g.skills.map(s => (
                   <li key={s.name} className="skills__item">
-                    <img
-                      src={`https://skillicons.dev/icons?i=${s.icon}`}
-                      alt={s.name}
-                      width={22}
-                      height={22}
-                      loading="lazy"
-                      className="skills__icon"
-                    />
+                    <SkillIcon skill={s} />
                     <span className="skills__name">{s.name}</span>
                   </li>
                 ))}

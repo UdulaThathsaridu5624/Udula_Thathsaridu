@@ -2,11 +2,11 @@
   background: var(--bg);
 }
 
-/* ── 4-col grid ─────────────────────────────────── */
+/* ── 6-col grid ─────────────────────────────────── */
 
 .skills__grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   gap: clamp(24px, 4vw, 48px);
   align-items: start;
 }
@@ -39,6 +39,16 @@
   display: flex;
   align-items: center;
   gap: 10px;
+  padding: 6px 8px;
+  margin: 0 -8px;
+  border-radius: 8px;
+  cursor: default;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.skills__item:hover {
+  background: var(--line-soft);
+  transform: translateX(4px);
 }
 
 .skills__icon {
@@ -46,14 +56,43 @@
   height: 36px;
   object-fit: contain;
   flex-shrink: 0;
+  transform: scale(var(--icon-scale, 1));
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.skills__item:hover .skills__icon {
+  transform: scale(calc(var(--icon-scale, 1) * 1.12));
+}
+
+.skills__icon--fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background: var(--line-soft);
+  border: 1px solid var(--line);
+  color: var(--ink-2);
+  font-size: 13px;
+  font-weight: 600;
 }
 
 .skills__name {
   font-size: 14px;
   color: var(--ink-2);
+  transition: color 0.2s ease;
+}
+
+.skills__item:hover .skills__name {
+  color: var(--accent);
 }
 
 /* ── Responsive ─────────────────────────────────── */
+
+@media (max-width: 1300px) {
+  .skills__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
 
 @media (max-width: 900px) {
   .skills__grid {
