@@ -24,6 +24,7 @@
 
 .skills__group-label {
   font-size: 11px;
+  white-space: nowrap;
 }
 
 .skills__list {

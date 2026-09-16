@@ -56,7 +56,7 @@ const groups: { label: string; skills: Skill[] }[] = [
     ],
   },
   {
-    label: "Data & DevOps",
+    label: "DevOps",
     skills: [
       { name: "AWS",            icon: "aws"           },
       { name: "Docker",         icon: "docker"        },
